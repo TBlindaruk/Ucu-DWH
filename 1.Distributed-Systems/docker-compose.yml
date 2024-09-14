@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  server:
+    build: ./master/
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_DEBUG=1
+      - FLASK_APP=app.py
+      - REPLICA_HOST_1=http://replica_1:5001
+      - REPLICA_HOST_2=http://replica_2:5001
+      - REPLICA_HOST_3=http://replica_3:5001
+
+  replica_1:
+    build: ./replica/
+    ports:
+      - "5001:5001"
+    environment:
+      - FLASK_DEBUG=1
+      - FLASK_APP=app.py
+      - SLEEP=3
+
+  replica_2:
+    build: ./replica/
+    ports:
+      - "5002:5001"
+    environment:
+      - FLASK_DEBUG=1
+      - FLASK_APP=app.py
+      - SLEEP=2
+
+  replica_3:
+    build: ./replica/
+    ports:
+      - "5003:5001"
+    environment:
+      - FLASK_DEBUG=1
+      - FLASK_APP=app.py
+      - SLEEP=1

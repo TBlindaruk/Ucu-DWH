@@ -1,0 +1,21 @@
+server-1     | INFO:app:MASTER: replica list: {'REPLICA_HOST_1': 'http://replica_1:5001', 'REPLICA_HOST_2': 'http://replica_2:5001', 'REPLICA_HOST_3': 'http://replica_3:5001'}
+server-1     | INFO:app:MASTER: start for for: http://replica_1:5001
+server-1     | INFO:app:MASTER: send message from master. message: {'text': 'Hello, World!', 'num_requests': 5} , replica: http://replica_1:5001
+server-1     | INFO:app:MASTER: start for for: http://replica_2:5001
+server-1     | INFO:app:MASTER: send message from master. message: {'text': 'Hello, World!', 'num_requests': 5} , replica: http://replica_2:5001
+server-1     | INFO:app:MASTER: start for for: http://replica_3:5001
+server-1     | INFO:app:MASTER: send message from master. message: {'text': 'Hello, World!', 'num_requests': 5} , replica: http://replica_3:5001
+replica_1-1  | INFO:app:SLAVE: initiate save data: {'text': 'Hello, World!', 'num_requests': 5}
+replica_2-1  | INFO:app:SLAVE: initiate save data: {'text': 'Hello, World!', 'num_requests': 5}
+replica_3-1  | INFO:app:SLAVE: initiate save data: {'text': 'Hello, World!', 'num_requests': 5}
+replica_3-1  | INFO:app:SLAVE: finished save data: {'text': 'Hello, World!', 'num_requests': 5}
+replica_3-1  | INFO:werkzeug:172.22.0.2 - - [14/Sep/2024 17:13:41] "POST /internal/messages HTTP/1.1" 201 -
+server-1     | INFO:app:MASTER: success send message: {'text': 'Hello, World!', 'num_requests': 5} to http://replica_3:5001
+replica_2-1  | INFO:app:SLAVE: finished save data: {'text': 'Hello, World!', 'num_requests': 5}
+replica_2-1  | INFO:werkzeug:172.22.0.2 - - [14/Sep/2024 17:13:42] "POST /internal/messages HTTP/1.1" 201 -
+server-1     | INFO:app:MASTER: success send message: {'text': 'Hello, World!', 'num_requests': 5} to http://replica_2:5001
+replica_1-1  | INFO:app:SLAVE: finished save data: {'text': 'Hello, World!', 'num_requests': 5}
+replica_1-1  | INFO:werkzeug:172.22.0.2 - - [14/Sep/2024 17:13:43] "POST /internal/messages HTTP/1.1" 201 -
+server-1     | INFO:app:MASTER: success send message: {'text': 'Hello, World!', 'num_requests': 5} to http://replica_1:5001
+server-1     | INFO:app:MASTER: all responses is get
+server-1     | INFO:werkzeug:192.168.1.1 - - [14/Sep/2024 17:13:43] "POST /messages HTTP/1.1" 201 -
