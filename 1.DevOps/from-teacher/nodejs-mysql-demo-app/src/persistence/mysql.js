@@ -1,6 +1,6 @@
 const waitPort = require('wait-port');
 const fs = require('fs');
-const mysql = require('mysql');
+const mysql = require('1.DevOps/from-teacher/nodejs-mysql-demo-app/src/persistence/mysql');
 
 const {
     MYSQL_HOST: HOST,
