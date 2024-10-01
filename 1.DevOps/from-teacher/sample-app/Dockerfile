@@ -25,4 +25,6 @@ EXPOSE 8050
 
 # this command is started when container is ran
 # below is recommended form of CMD
-CMD ["python", "GraphAnalysis.py", "obj_dependency_data.csv"]
+ENTRYPOINT ["python", "GraphAnalysis.py"]
+
+CMD [ "obj_dependency_data.csv"]
