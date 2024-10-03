@@ -3,7 +3,7 @@
 
 
 ## Send request
- curl -X POST http://localhost:5000/messages -H "Content-Type: application/json" -d '{"text": "Hello, World!"}'
+curl -X POST http://localhost:5000/messages -H "Content-Type: application/json" -d '{"text": "Hello, World!"}'
 
 
 ## Logs
