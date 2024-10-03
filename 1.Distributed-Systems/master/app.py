@@ -1,5 +1,5 @@
-import os
 import logging
+import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import requests
@@ -22,20 +22,26 @@ def replicate_message(message, replica_url):
 
         if response.status_code == 201:
             logger.info(f"MASTER: success send message: {message} to {replica_url}")
+            return True
         else:
             logger.info(f"MASTER: un success send message: {message} to {replica_url}")
+            return False
 
     except Exception as e:
         logger.info(f"MASTER: error when send message: {message['text']} to {replica_url}. ERROR: {e}")
+        return False
 
 @app.post('/messages')
 def create():
     data = request.json
     messages.append(data)
+    count_of_replica_concern = int(os.getenv('CONCERN')) - 1
 
     futures = []
+    success_counter = 0
 
     replica_env_vars = {key: value for key, value in os.environ.items() if key.startswith("REPLICA_HOST")}
+
 
     logger.info(f"MASTER: replica list: {replica_env_vars}")
 
@@ -44,7 +50,17 @@ def create():
         future = executor.submit(replicate_message, data, replica_url)
         futures.append(future)
 
-    results = [future.result() for future in as_completed(futures)]
+    if count_of_replica_concern <= 0:
+        return [], 201
+
+    for future in as_completed(futures):
+        result = future.result()
+        if result == True:
+            success_counter += 1
+
+        if success_counter >= count_of_replica_concern:
+            return [], 201
+
     logger.info(f"MASTER: all responses is get")
 
     return [], 201

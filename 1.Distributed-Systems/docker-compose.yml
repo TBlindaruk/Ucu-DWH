@@ -11,6 +11,9 @@ services:
       - REPLICA_HOST_1=http://replica_1:5001
       - REPLICA_HOST_2=http://replica_2:5001
       - REPLICA_HOST_3=http://replica_3:5001
+      - CONCERN=3
+    volumes:
+      - ./master:/app
 
   replica_1:
     build: ./replica/
@@ -19,7 +22,9 @@ services:
     environment:
       - FLASK_DEBUG=1
       - FLASK_APP=app.py
-      - SLEEP=3
+      - SLEEP=30
+    volumes:
+      - ./replica:/app
 
   replica_2:
     build: ./replica/
@@ -28,7 +33,9 @@ services:
     environment:
       - FLASK_DEBUG=1
       - FLASK_APP=app.py
-      - SLEEP=2
+      - SLEEP=10
+    volumes:
+      - ./replica:/app
 
   replica_3:
     build: ./replica/
@@ -37,4 +44,6 @@ services:
     environment:
       - FLASK_DEBUG=1
       - FLASK_APP=app.py
-      - SLEEP=1
+      - SLEEP=20
+    volumes:
+      - ./replica:/app
