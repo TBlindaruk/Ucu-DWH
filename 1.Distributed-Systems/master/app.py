@@ -13,8 +13,8 @@ app = Flask(__name__)
 
 messages = []
 
-app.add_url_rule('/messages', 'create', lambda : create.create_action(messages), methods=['POST'])
-app.add_url_rule('/messages', 'get', lambda : get.get_list_action(messages), methods=['GET'])
+app.add_url_rule('/messages', 'create', create.create_action, methods=['POST'])
+app.add_url_rule('/messages', 'get', get.get_list_action, methods=['GET'])
 
 if __name__ == '__main__':
     app.run(port=5000)
