@@ -14,7 +14,7 @@ executor = ThreadPoolExecutor()
 
 def create_action():
     data = request.json
-    MessageStoreSingleton().add_message(data)
+    position = MessageStoreSingleton().append(data)
     count_of_replica_concern = int(os.getenv('CONCERN')) - 1
 
     futures = []
@@ -22,12 +22,11 @@ def create_action():
 
     replica_env_vars = {key: value for key, value in os.environ.items() if key.startswith("REPLICA_HOST")}
 
-
     logger.info(f"MASTER: replica list: {replica_env_vars}")
 
     for env_key, replica_url in replica_env_vars.items():
         logger.info(f"MASTER: start for for: {replica_url}")
-        future = executor.submit(replicate_message, data, replica_url)
+        future = executor.submit(replicate_message, data, replica_url, position)
         futures.append(future)
 
     if count_of_replica_concern <= 0:
@@ -45,11 +44,11 @@ def create_action():
 
     return [], 201
 
-def replicate_message(message, replica_url):
+def replicate_message(message, replica_url: str, position: int):
     try:
         logger.info(f"MASTER: send message from master. message: {message} , replica: {replica_url}")
 
-        response = requests.post(replica_url + '/internal/messages', json=message)
+        response = requests.post(replica_url + '/internal/messages/' + str(position), json=message)
 
         if response.status_code == 201:
             logger.info(f"MASTER: success send message: {message} to {replica_url}")

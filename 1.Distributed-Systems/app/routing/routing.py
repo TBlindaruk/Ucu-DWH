@@ -13,5 +13,5 @@ class Routing:
             app.add_url_rule('/messages', 'create', create.create_action, methods=['POST'])
 
         if AppModeConfing().is_replica():
-            app.add_url_rule('/internal/messages', 'create_init', replica_create.create_action, methods=['POST'])
+            app.add_url_rule('/internal/messages/<int:position>', 'create_init', replica_create.create_action, methods=['POST'])
 
