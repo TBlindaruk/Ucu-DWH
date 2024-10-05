@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   server:
-    build: ./master/
+    build: app/
     ports:
       - "5000:5000"
     environment:
@@ -13,10 +13,10 @@ services:
       - REPLICA_HOST_3=http://replica_3:5000
       - CONCERN=3
     volumes:
-      - ./master:/app
+      - ./app:/app
 
   replica_1:
-    build: ./master/
+    build: app/
     ports:
       - "5001:5000"
     environment:
@@ -25,10 +25,10 @@ services:
       - SLEEP=30
       - APP_MODE=replica
     volumes:
-      - ./master:/app
+      - ./app:/app
 
   replica_2:
-    build: ./master/
+    build: app/
     ports:
       - "5002:5000"
     environment:
@@ -37,10 +37,10 @@ services:
       - SLEEP=10
       - APP_MODE=replica
     volumes:
-      - ./master:/app
+      - ./app:/app
 
   replica_3:
-    build: ./master/
+    build: app/
     ports:
       - "5003:5000"
     environment:
@@ -49,4 +49,4 @@ services:
       - SLEEP=20
       - APP_MODE=replica
     volumes:
-      - ./master:/app
+      - ./app:/app

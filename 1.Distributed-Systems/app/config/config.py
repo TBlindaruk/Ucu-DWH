@@ -1,7 +1,7 @@
 import os
 
 class AppModeConfing:
-    MODE_MASTER = 'master'
+    MODE_MASTER = 'app'
     MODE_REPLICA = 'replica'
 
     def __get_app_mode(self):
