@@ -1,8 +1,3 @@
-from asyncio import sleep
-
-from time import sleep
-
-
 class MessageStoreSingleton:
     _instance = None
     _messages = []
