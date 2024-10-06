@@ -51,3 +51,14 @@ Run 2 containers in the same network and prove communication between these conta
 - `docker run -d -p 8053:8050 --network my-network -v ./temp:/app/temp-inside sample-app-2 /app/temp-inside/obj_dependency_data2.csv`
 - `docker network inspect my-network`
 ![img](./files/7-1-run-containers.png)
+
+#### 8 tasks
+Run multistage
+
+- `docker build -t taniablindaruk/multistage-example:0.0.1 .` - build 
+- `docker push taniablindaruk/multistage-example:0.0.1` - push to dockerhub
+- `https://hub.docker.com/repository/docker/taniablindaruk/multistage-example/general` - example on docker - hub
+
+- `docker run -it -d -p 8051:8050 taniablindaruk/multistage-example:0.0.1` - run
+- Result in logs after run ![image](./files/8-1-run-multistage.png)
+- 
