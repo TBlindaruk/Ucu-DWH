@@ -12,3 +12,9 @@ class AppModeConfing:
 
     def is_replica(self):
         return self.__get_app_mode() == self.MODE_REPLICA
+
+class GeneralConfig:
+
+    @staticmethod
+    def get_concern():
+        return int(os.getenv('CONCERN'))
