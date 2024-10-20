@@ -5,6 +5,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 from flask import request
 
+from request_dto.messages import CreateMessageRequestData
 from service import MessageStoreSingleton
 
 logging.basicConfig(level=logging.INFO)
@@ -13,9 +14,10 @@ logger = logging.getLogger(__name__)
 executor = ThreadPoolExecutor()
 
 def create_action():
-    data = request.json
+    data = CreateMessageRequestData.get_data()
+
     position = MessageStoreSingleton().append(data)
-    count_of_replica_concern = int(os.getenv('CONCERN')) - 1
+    count_of_replica_concern = CreateMessageRequestData.count_of_replica_concern()
 
     futures = []
     success_counter = 0
