@@ -1,9 +1,9 @@
 import logging
 import os
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import requests
-from flask import request
 
 from request_dto.messages import CreateMessageRequestData
 from service import MessageStoreSingleton
@@ -46,7 +46,7 @@ def create_action():
 
     return [], 201
 
-def replicate_message(message, replica_url: str, position: int):
+def replicate_message(message, replica_url: str, position: int, retry_count = 5):
     try:
         logger.info(f"MASTER: send message from master. message: {message} , replica: {replica_url}")
 
@@ -56,9 +56,15 @@ def replicate_message(message, replica_url: str, position: int):
             logger.info(f"MASTER: success send message: {message} to {replica_url}")
             return True
         else:
-            logger.info(f"MASTER: un success send message: {message} to {replica_url}")
+            logger.info(f"MASTER: unsuccessful send message: {message} to {replica_url}")
+            if retry_count > 0:
+                delay = (2 ** (5 - retry_count))
+                logger.info(f"MASTER: retrying in {delay} seconds...")
+                time.sleep(delay)
+                return replicate_message(message, replica_url, position, retry_count - 1)
+
             return False
 
     except Exception as e:
-        logger.info(f"MASTER: error when send message: {message['text']} to {replica_url}. ERROR: {e}")
+        logger.info(f"MASTER: error when sending message: {message['text']} to {replica_url}. ERROR: {e}")
         return False
