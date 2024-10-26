@@ -1,7 +1,7 @@
 from flask import Flask
 
-from action.messages import create, get, health
-from action.messages.replica import create as replica_create
+from api.controller.messages import get, create, health
+from api.controller.messages.replica import create as replica_create
 from config import AppModeConfing
 
 class Routing:

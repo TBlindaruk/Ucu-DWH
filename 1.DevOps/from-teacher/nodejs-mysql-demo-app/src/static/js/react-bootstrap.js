@@ -13576,7 +13576,7 @@ function (_React$Component) {
       ,
       as: as || (action ? props.href ? 'a' : 'button' : 'div'),
       onClick: this.handleClick,
-      className: classnames_default()(className, bsPrefix, active && 'active', disabled && 'disabled', variant && bsPrefix + "-" + variant, action && bsPrefix + "-action"),
+      className: classnames_default()(className, bsPrefix, active && 'active', disabled && 'disabled', variant && bsPrefix + "-" + variant, action && bsPrefix + "-controller"),
       __source: {
         fileName: ListGroupItem_jsxFileName,
         lineNumber: 80
@@ -13619,7 +13619,7 @@ ListGroupItem_ListGroupItem.propTypes = {
   onClick: prop_types_default.a.func,
 
   /**
-   * You can use a custom element type for this component. For none `action` items, items render as `li`.
+   * You can use a custom element type for this component. For none `controller` items, items render as `li`.
    * For actions the default is an achor or button element depending on whether a `href` is provided.
    *
    * @default {'div' | 'a' | 'button'}
@@ -15425,7 +15425,7 @@ var OverlayTrigger_propTypes = {
   children: prop_types_default.a.element.isRequired,
 
   /**
-   * Specify which action or actions trigger Overlay visibility
+   * Specify which controller or actions trigger Overlay visibility
    *
    * @type {'hover' | 'click' |'focus' | Array<'hover' | 'click' |'focus'>}
    */

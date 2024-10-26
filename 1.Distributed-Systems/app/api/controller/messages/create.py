@@ -5,7 +5,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import requests
 
-from request_dto.messages import CreateMessageRequestData
+from api.data.messages import CreateMessageRequestData
 from service import MessageStoreSingleton, UnsentMessageStoreSingleton
 
 logging.basicConfig(level=logging.INFO)
@@ -57,6 +57,7 @@ def replicate_message(message, replica_url: str, position: int, retry_count:int,
                 return replicate_message(message, replica_url, position, retry_count - 1)
 
             UnsentMessageStoreSingleton().insert_into_replica_with_position(replica_url, position, message)
+
             return False
 
     except Exception as e:
@@ -66,6 +67,9 @@ def replicate_message(message, replica_url: str, position: int, retry_count:int,
             return replicate_message(message, replica_url, position, retry_count - 1)
 
         UnsentMessageStoreSingleton().insert_into_replica_with_position(replica_url, position, message)
+
+        logger.info(f"MASTER: replica ERROR: {e}")
+
         return False
 
 def process_unsent_message(replica_url: str):
