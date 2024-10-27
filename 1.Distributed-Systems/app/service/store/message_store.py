@@ -1,6 +1,7 @@
 class MessageStoreSingleton:
     _instance = None
     _messages = []
+    _un_showed_messages = {}
 
     def __new__(cls):
         if cls._instance is None:
@@ -13,10 +14,16 @@ class MessageStoreSingleton:
 
         return len(self._messages) - 1
 
-    def insert_with_rewrite(self, position: int, message):
-        while position >= len(self._messages):
-            self._messages.append(None)
-        self._messages[position] = message
+    def insert_with_order(self, position: int, message):
+        if position > len(self._messages):
+            self._un_showed_messages[position] = message
+            return
+        self._messages.append(message)
+
+        next_position = position + 1
+        if next_position in self._un_showed_messages and self._un_showed_messages[next_position] is not None:
+            self.insert_with_order(next_position, self._un_showed_messages[next_position])
+            del self._un_showed_messages[next_position]
 
     def get_messages(self):
         return self._messages

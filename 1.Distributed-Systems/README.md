@@ -20,7 +20,6 @@ Main features (maximum 20 points):
 - All messages should be present exactly once in the secondary log - deduplication
   - To test deduplication you can generate some random internal server error response from the secondary after the message has been added to the log
 - The order of messages should be the same in all nodes - total order
-  - I WILL NOT DO IT, SINCE I GUES THAT WE CAN SAVE IN ORDER THT SHOUULD BE:
-    - If secondary has received messages [msg1, msg2, msg4], it shouldn’t display the message ‘msg4’ until the ‘msg3’ will be received
+  - If secondary has received messages [msg1, msg2, msg4], it shouldn’t display the message ‘msg4’ until the ‘msg3’ will be received
   - To test the total order, you can generate some random internal server error response from the secondaries
 - 
