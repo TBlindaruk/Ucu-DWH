@@ -1,1 +1,1 @@
-from .status_dist import HealthStatus
+from .status_manager import secondaries_status, heartbeat

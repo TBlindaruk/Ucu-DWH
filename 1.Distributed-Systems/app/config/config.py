@@ -14,7 +14,10 @@ class AppModeConfing:
         return self.__get_app_mode() == self.MODE_REPLICA
 
 class GeneralConfig:
-
     @staticmethod
     def get_concern():
         return int(os.getenv('CONCERN'))
+
+    @staticmethod
+    def get_replicas():
+        return {key: value for key, value in os.environ.items() if key.startswith("REPLICA_HOST")}
