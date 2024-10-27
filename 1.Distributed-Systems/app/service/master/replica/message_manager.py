@@ -40,6 +40,9 @@ def replicate_message(message, replica_url: str, position: int, retry_count:int)
         if retry_count > 0:
             delay = (2 ** (5 - retry_count))
             time.sleep(delay)
+
+            logger.info(f'MASTER: retry number {5- retry_count} to {replica_url}')
+
             return replicate_message(message, replica_url, position, retry_count - 1)
 
         UnsentMessageStoreSingleton().insert_into_replica_with_position(replica_url, position, message)
