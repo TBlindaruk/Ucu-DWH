@@ -41,4 +41,4 @@ def create_action():
         if success_counter >= count_of_replica_concern:
             return [], 201
 
-    return [], 201
+    return ['We have problem with replica'], 400
