@@ -1,3 +1,9 @@
+def insert_or_replace(lst, position, value):
+    if position < len(lst):
+        lst[position] = value
+    else:
+        lst.append(value)
+
 class MessageStoreSingleton:
     _instance = None
     _messages = []
@@ -18,7 +24,8 @@ class MessageStoreSingleton:
         if position > len(self._messages):
             self._un_showed_messages[position] = message
             return
-        self._messages.append(message)
+
+        insert_or_replace(self._messages, position, message)
 
         next_position = position + 1
         if next_position in self._un_showed_messages and self._un_showed_messages[next_position] is not None:

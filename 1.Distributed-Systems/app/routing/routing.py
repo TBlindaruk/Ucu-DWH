@@ -7,6 +7,7 @@ from api.controller.messages import get, create
 from api.controller.messages.replica import create as replica_create, health
 from config import AppModeConfing
 from service.healthy.status_manager import heartbeat
+from service.unsent_message.manager import UnsentMessageProcessor
 
 
 class Routing:
@@ -28,3 +29,7 @@ class Heartbeat:
         heartbeat_thread = threading.Thread(target=heartbeat)
         heartbeat_thread.daemon = True
         heartbeat_thread.start()
+
+        sent_unsent_messages = threading.Thread(target=UnsentMessageProcessor().process_unsent_messages)
+        sent_unsent_messages.daemon = True
+        sent_unsent_messages.start()

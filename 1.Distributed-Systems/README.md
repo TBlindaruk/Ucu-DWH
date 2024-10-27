@@ -22,4 +22,9 @@ Main features (maximum 20 points):
 - The order of messages should be the same in all nodes - total order
   - If secondary has received messages [msg1, msg2, msg4], it shouldn’t display the message ‘msg4’ until the ‘msg3’ will be received
   - To test the total order, you can generate some random internal server error response from the secondaries
-- 
+
+Additional features:
+- Heartbeats (+15 points)
+  - You can implement a heartbeat mechanism to check secondaries’ health (status): Healthy -> Suspected -> Unhealthy. 
+  - They can help you to make your retries logic smarter.
+  - You should have an API on the master to check the secondaries’ status: GET /health
