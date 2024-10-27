@@ -15,7 +15,7 @@ def create_action(position: int):
 
     sleep(int(os.getenv("SLEEP")))
 
-    MessageStoreSingleton().insert_with_rewrite(position, data)
+    MessageStoreSingleton().insert_with_order(position, data)
 
     logger.info(f"SLAVE: finished save data: {data}")
 

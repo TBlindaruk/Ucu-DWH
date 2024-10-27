@@ -1,1 +1,2 @@
-from .message_store import MessageStoreSingleton
+from service.store.message_store import MessageStoreSingleton
+from service.store.unsent_message_store import UnsentMessageStoreSingleton
