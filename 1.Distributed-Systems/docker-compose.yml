@@ -22,7 +22,6 @@ services:
     environment:
       - FLASK_DEBUG=1
       - FLASK_APP=app.py
-      - SLEEP=30
       - APP_MODE=replica
     volumes:
       - ./app:/app
@@ -34,7 +33,6 @@ services:
     environment:
       - FLASK_DEBUG=1
       - FLASK_APP=app.py
-      - SLEEP=10
       - APP_MODE=replica
     volumes:
       - ./app:/app
@@ -46,7 +44,6 @@ services:
     environment:
       - FLASK_DEBUG=1
       - FLASK_APP=app.py
-      - SLEEP=20
       - APP_MODE=replica
     volumes:
       - ./app:/app

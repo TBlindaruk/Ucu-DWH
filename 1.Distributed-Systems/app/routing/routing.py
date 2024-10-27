@@ -26,9 +26,10 @@ class Routing:
 class Heartbeat:
     @staticmethod
     def init():
-        heartbeat_thread = threading.Thread(target=heartbeat)
-        heartbeat_thread.daemon = True
-        heartbeat_thread.start()
+
+        # heartbeat_thread = threading.Thread(target=heartbeat)
+        # heartbeat_thread.daemon = True
+        # heartbeat_thread.start()
 
         sent_unsent_messages = threading.Thread(target=UnsentMessageProcessor().process_unsent_messages)
         sent_unsent_messages.daemon = True
