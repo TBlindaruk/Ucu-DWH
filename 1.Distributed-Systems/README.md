@@ -28,3 +28,6 @@ Additional features:
   - You can implement a heartbeat mechanism to check secondaries’ health (status): Healthy -> Suspected -> Unhealthy. 
   - They can help you to make your retries logic smarter.
   - You should have an API on the master to check the secondaries’ status: GET /health
+
+- Quorum append (+5 points)
+  - If there is no quorum the master should be switched into read-only mode and shouldn’t accept messages append requests and should return the appropriate message

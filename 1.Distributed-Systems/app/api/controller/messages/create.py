@@ -5,6 +5,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from api.data.messages import CreateMessageRequestData
 from service import MessageStoreSingleton
 from service.master.replica.message_manager import replicate_message
+from service.quorum.manager import is_quorum
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -12,6 +13,9 @@ logger = logging.getLogger(__name__)
 executor = ThreadPoolExecutor()
 
 def create_action():
+    if not is_quorum():
+        return ["We have a problem with replicas"], 400
+
     data = CreateMessageRequestData.get_data()
 
     position = MessageStoreSingleton().append(data)
